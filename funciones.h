@@ -17,9 +17,19 @@ void cargar_obstaculos(int mapa[FIL][COL])
 {
 	int x, y;
 	
+	//obstaculo de dos posiciones
 	do {
-		 x = 1 + rand()%FIL-2;
-		 y = 1 + rand()%COL-1;
+		x = 1 + rand()%FIL-2;
+		y = 1 + rand()%COL-1;
+	} while(mapa[x][y] != 0 || mapa[x+1][y] != 0);
+
+	mapa[x][y] = 10;
+	mapa[x+1][y] = 10;
+	
+	//obstaculo de 3 posiciones
+	do {
+		x = 1 + rand()%FIL-2;
+		y = 1 + rand()%COL-1;
 	} while(mapa[x][y] != 0 || mapa[x+1][y] != 0 || mapa[x+2][y] != 0);
 
 	mapa[x][y] = 10;

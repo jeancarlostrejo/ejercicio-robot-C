@@ -4,8 +4,8 @@
 #include <ctype.h>
 #define FIL 15 //para que el robot se mueva en un tablero de 15x15 se deben definir en 17 las constantes
 #define COL 15 // ya que 2 espacios ocuparan las paredes (izquierda-derecha y arriba-abajo)
-#define MAX_MOV 20 // Máximos movimientos permitidos
-#define OBSTACULOS 2 // cantidad de obstáculos a generar 
+#define MAX_MOV 20 // Maximos movimientos permitidos
+#define OBSTACULOS 1 // cantidad de pares de obstaculos (uno de 2 y otro de 3 posiciones)
 #include "funciones.h"
 
 int main(int argc, char *argv[]){
