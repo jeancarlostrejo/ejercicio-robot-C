@@ -106,31 +106,38 @@ void imprimir_mapa(int mapa[FIL][COL])
 		}
 	}
 	
-	void movimientos(char mov[MAX], int *max_mov, int mapa[FIL][COL])
+	void movimientos(char mov[MAX_MOV], int *max_mov, int mapa[FIL][COL])
 	{
-		int i=0;
-		char resp;
+		int i = 0;
+		char letter, mov_valid;
 		
-		printf("\nIngrese movimientos: arriba(A) abajo(B) derecha(D) izquierda(I)");
-		
-		do
-		{		
-			printf("\nIngrese movimiento %d", i+1);//calidar que no se salga
-			fflush(stdin);
-			scanf("%c", &mov[i]);
-		
-			resp = mov[i];
+		printf("\nMovimientos permitidos: arriba(A) abajo(B) derecha(D) izquierda(I)");
+		printf("\nCantidad de movimientos disponibles: %d", MAX_MOV);
+		do {
+			do {
+				 printf("\nIngrese movimiento %d: ", i + 1);
+				 scanf("%c", &letter);
+				 getchar();
+			   mov_valid = tolower(letter);
+			} while (mov_valid != 'a' && mov_valid != 'b' && mov_valid != 'd' && mov_valid != 'i' && mov_valid != 'r');
+			
+			if(mov_valid == 'r'){
+				break;
+			}
+			
+			mov[i] = mov_valid;
 			
 			i++;
-		}while( resp != 'r' && i<MAX);
+		} while(i < MAX_MOV);
 		
 		*max_mov = i;
 	}	
-	void simulacion(int mapa[FIL][COL], char mov[MAX], int pos_x, int pos_y)
+	
+	void simulacion(int mapa[FIL][COL], char mov[MAX_MOV], int pos_x, int pos_y)
 	{
 		int i;
 		
- 	 	for (i=0; i<MAX; i++) {		
+ 	 	for (i=0; i<MAX_MOV; i++) {		
 			if(mov[i] == 'a') {		
 				mapa[pos_x][pos_y] = 4;
 				
@@ -144,6 +151,7 @@ void imprimir_mapa(int mapa[FIL][COL])
 			}
 			
 			if(mov[i] == 'b') {
+				
 				mapa[pos_x][pos_y] = 4;
 				
 				if(mapa[pos_x+1][pos_y] == 2 ) {
