@@ -21,7 +21,7 @@ void cargar_obstaculos(int mapa[FIL][COL])
 		 x = 1 + rand()%FIL-2;
 		 y = 1 + rand()%COL-1;
 	} while(mapa[x][y] != 0 || mapa[x+1][y] != 0 || mapa[x+2][y] != 0);
-		
+
 	mapa[x][y] = 10;
 	mapa[x+1][y] = 10;
 	mapa[x+2][y] = 10;
@@ -51,7 +51,6 @@ void cargar_robot(int mapa[FIL][COL], int *xRobot, int *yRobot) {
 		
 	*xRobot = x;
 	*yRobot = y;
-	printf("posicion del robot en la funcion x:%d y:%d", x,y);	
 }
 
 	void cargar_mapa(int mapa[FIL][COL], int *pos_x, int *pos_y)
@@ -59,7 +58,7 @@ void cargar_robot(int mapa[FIL][COL], int *xRobot, int *yRobot) {
 		int x, y, i;
 		
 		for (i = 0 ; i < OBSTACULOS; i++) {
-			cargar_obstaculos(mapa);	
+			cargar_obstaculos(mapa);
 		}
 		
 		cargar_robot(mapa, &*pos_x, &*pos_y);
@@ -73,18 +72,18 @@ void imprimir_mapa(int mapa[FIL][COL])
 		for (i = 0; i < FIL; i++) {
 			printf("\n");
 			for( j=0; j<COL; j++) {
-	  		//imprimimos bordes	 	  		 	 
+	  		//imprimimos bordes
 				if (mapa[i][j] == 1) {
 					printf("*");	
 				}
 				
 			 	//imrpimimos espacios en blanco 
 				if(mapa[i][j] == 0) {
-					printf(" ");	
-				}				
+					printf(" ");
+				}
 				
 				//imprimimos robot 
-				if(mapa[i][j] == 5) {	
+				if(mapa[i][j] == 5) {
 					printf("R");
 				}
 				
@@ -133,16 +132,23 @@ void imprimir_mapa(int mapa[FIL][COL])
 		*max_mov = i;
 	}	
 	
-	void simulacion(int mapa[FIL][COL], char mov[MAX_MOV], int pos_x, int pos_y)
+	void simulacion(int mapa[FIL][COL], char mov[MAX_MOV], int pos_x, int pos_y, int mov_realizados, int *win, int *colision)
 	{
-		int i;
+		int i, ganar = 0, choque = 0;
 		
- 	 	for (i=0; i<MAX_MOV; i++) {		
-			if(mov[i] == 'a') {		
+ 	 	for (i = 0; i < mov_realizados; i++) {
+ 	 		//Movimiento hacia arriba
+			if(mov[i] == 'a') {
 				mapa[pos_x][pos_y] = 4;
 				
 				if (mapa[pos_x-1][pos_y] == 2 ) {
-					printf("Ha logrado llegar a la puerta");
+					ganar = 1;
+					break;
+				}
+				
+				//Verifica si choc� contra un obsytaculo o un muro
+				if (mapa[pos_x-1][pos_y] == 1 || mapa[pos_x-1][pos_y] == 10 ) {
+					choque = 1;
 					break;
 				}
 				
@@ -150,12 +156,18 @@ void imprimir_mapa(int mapa[FIL][COL])
 				mapa[pos_x][pos_y] = 5;
 			}
 			
+			//Movimiento hacia abajp
 			if(mov[i] == 'b') {
 				
 				mapa[pos_x][pos_y] = 4;
 				
 				if(mapa[pos_x+1][pos_y] == 2 ) {
-					printf("Ha logrado llegar a la puerta");
+					ganar = 1;
+					break;
+				}
+				
+				if(mapa[pos_x+1][pos_y] == 1 || mapa[pos_x+1][pos_y] == 10 ) {
+					choque = 1;
 					break;
 				}
 				
@@ -163,23 +175,35 @@ void imprimir_mapa(int mapa[FIL][COL])
 				mapa[pos_x][pos_y] = 5;
 			}
 			
+			//Movimiento hacia la derecha
 			if(mov[i] == 'd') {
 				mapa[pos_x][pos_y] = 4;
 				
 				if(mapa[pos_x][pos_y+1] == 2 ) {
-					printf("Ha logrado llegar a la puerta");
+					ganar = 1;
 					break;
 				}
 				
+				if(mapa[pos_x][pos_y+1] == 1 || mapa[pos_x][pos_y+1] == 10 ) {
+					choque = 1;
+					break;
+				}
+			
 				pos_y++;
 				mapa[pos_x][pos_y] = 5;
 			}
 			
+			//Movimiento hacia la izquierda
 			if (mov[i] == 'i') {
 				mapa[pos_x][pos_y] = 4;
 				
 				if(mapa[pos_x][pos_y-1] == 2 ) {
-					printf("Ha logrado llegar a la puerta");
+					ganar = 1;
+					break;
+				}
+				
+				if(mapa[pos_x][pos_y-1] == 1 || mapa[pos_x][pos_y-1] == 10) {
+					choque = 1;
 					break;
 				}
 				
@@ -187,5 +211,7 @@ void imprimir_mapa(int mapa[FIL][COL])
 				mapa[pos_x][pos_y] = 5;
 			}
 		}
+		
+		*win = ganar;
+		*colision = choque;
 	}
-
