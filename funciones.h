@@ -56,14 +56,14 @@ void cargar_robot(int mapa[FIL][COL], int *xRobot, int *yRobot) {
 
 	void cargar_mapa(int mapa[FIL][COL], int *pos_x, int *pos_y)
 	{	
-		int x, y;
+		int x, y, i;
 		
-		cargar_obstaculos(mapa);
-		cargar_obstaculos(mapa);
+		for (i = 0 ; i < OBSTACULOS; i++) {
+			cargar_obstaculos(mapa);	
+		}
+		
 		cargar_robot(mapa, &*pos_x, &*pos_y);
 		cargar_puerta(mapa);
-		
-
 	}	
 	
 void imprimir_mapa(int mapa[FIL][COL])

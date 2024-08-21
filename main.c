@@ -4,6 +4,7 @@
 #define FIL 15 //para que el robot se mueva en un talbero 15x15 se deben definir en 17 las constantes
 #define COL 15  // ya que 2 espacios ocuparan las paredes
 #define MAX 20
+#define OBSTACULOS 4
 #include "funciones.h"
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
