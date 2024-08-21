@@ -112,6 +112,11 @@ void imprimir_mapa(int mapa[FIL][COL])
 		
 		printf("\nMovimientos permitidos: arriba(A) abajo(B) derecha(D) izquierda(I)");
 		printf("\nCantidad de movimientos disponibles: %d", MAX_MOV);
+		printf("\nLeyenda:");
+		printf("\n- R: robot");
+		printf("\n- D: puerta:");
+		printf("\n- *: paredes:");
+		printf("\n- #: obstaculos:");
 		do {
 			do {
 				 printf("\nIngrese movimiento %d: ", i + 1);
