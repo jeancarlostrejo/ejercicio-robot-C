@@ -73,7 +73,6 @@ void imprimir_mapa(int mapa[FIL][COL])
 		for (i = 0; i < FIL; i++) {
 			printf("\n");
 			for( j=0; j<COL; j++) {
-				
 	  		//imprimimos bordes	 	  		 	 
 				if (mapa[i][j] == 1) {
 					printf("*");	
@@ -107,19 +106,15 @@ void imprimir_mapa(int mapa[FIL][COL])
 		}
 	}
 	
-	
-	
 	void movimientos(char mov[MAX], int *max_mov, int mapa[FIL][COL])
 	{
-		
 		int i=0;
 		char resp;
 		
 		printf("\nIngrese movimientos: arriba(A) abajo(B) derecha(D) izquierda(I)");
 		
 		do
-		{
-			
+		{		
 			printf("\nIngrese movimiento %d", i+1);//calidar que no se salga
 			fflush(stdin);
 			scanf("%c", &mov[i]);
@@ -127,97 +122,62 @@ void imprimir_mapa(int mapa[FIL][COL])
 			resp = mov[i];
 			
 			i++;
-			
 		}while( resp != 'r' && i<MAX);
 		
 		*max_mov = i;
-		
 	}	
-	
 	void simulacion(int mapa[FIL][COL], char mov[MAX], int pos_x, int pos_y)
 	{
-		
 		int i;
- 	  
- 	 
- 	 	 for(i=0; i<MAX; i++)
-		{
-			
-			if(mov[i] == 'a')
-			{
-				
+		
+ 	 	for (i=0; i<MAX; i++) {		
+			if(mov[i] == 'a') {		
 				mapa[pos_x][pos_y] = 4;
 				
-				if(mapa[pos_x-1][pos_y] == 2 )
-				{
-					
+				if (mapa[pos_x-1][pos_y] == 2 ) {
 					printf("Ha logrado llegar a la puerta");
 					break;
-					
 				}
 				
 				pos_x--;
 				mapa[pos_x][pos_y] = 5;
-								
 			}
 			
-			if(mov[i] == 'b')
-			{
-				
+			if(mov[i] == 'b') {
 				mapa[pos_x][pos_y] = 4;
 				
-				if(mapa[pos_x+1][pos_y] == 2 )
-				{
-					
+				if(mapa[pos_x+1][pos_y] == 2 ) {
 					printf("Ha logrado llegar a la puerta");
 					break;
-					
 				}
-				
 				
 				pos_x++;
 				mapa[pos_x][pos_y] = 5;
-				
 			}
 			
-			if(mov[i] == 'd')
-			{
-				
+			if(mov[i] == 'd') {
 				mapa[pos_x][pos_y] = 4;
 				
-				if(mapa[pos_x][pos_y+1] == 2 )
-				{
-					
+				if(mapa[pos_x][pos_y+1] == 2 ) {
 					printf("Ha logrado llegar a la puerta");
 					break;
-					
 				}
 				
 				pos_y++;
 				mapa[pos_x][pos_y] = 5;
-				
 			}
 			
-			if(mov[i] == 'i')
-			{
-				
+			if (mov[i] == 'i') {
 				mapa[pos_x][pos_y] = 4;
 				
-				if(mapa[pos_x][pos_y-1] == 2 )
-				{
-					
+				if(mapa[pos_x][pos_y-1] == 2 ) {
 					printf("Ha logrado llegar a la puerta");
 					break;
-					
 				}
-				
 				
 				pos_y--;
 				mapa[pos_x][pos_y] = 5;
-				
 			}
-			
 		}
-		
 	}
 
